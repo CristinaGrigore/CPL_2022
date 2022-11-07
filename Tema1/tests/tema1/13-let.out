@@ -1,0 +1,16 @@
+program
+  class
+    A
+    id
+NULL
+    id
+    attribute
+      x
+      Int
+      1
+    attribute
+      y
+      Int
+      1
+    id
+    id

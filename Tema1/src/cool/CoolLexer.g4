@@ -31,7 +31,9 @@ FI: 'fi';
 
 BOOL : 'true' | 'false';
 
-TYPE : 'Int' | 'Float' | 'Bool';
+TYPE : 'Int' | 'Float' | 'Bool' | 'SELF_TYPE' | 'Object' | 'String';
+CLASS : 'class';
+INHERITS: 'inherits';
 
 /* Identificator.
  */
@@ -63,7 +65,10 @@ FLOAT : (DIGITS ('.' DIGITS?)? | '.' DIGITS) EXPONENT?;
  * care vor fi executate la întâlnirea acestui token.
  */
 STRING : '"' ('\\"' | .)*? '"'
-    { System.out.println("there are no strings in CPLang, but shhh.."); };
+    {
+      String my_str = getText().substring(1, my_str.length()-1);
+      setText(my_str);
+     };
 
 SEMI : ';';
 
@@ -92,6 +97,12 @@ EQUAL : '==';
 LT : '<';
 
 LE : '<=';
+
+COLON : ':';
+
+ASSIGN2 : '<-';
+
+NEG: '~';
 
 fragment NEW_LINE : '\r'? '\n';
 

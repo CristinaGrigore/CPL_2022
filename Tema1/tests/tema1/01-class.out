@@ -1,25 +1,6 @@
-ANTLR Tool version 4.10.1 used for code generation does not match the current runtime version 4.11.1
-class : ID
-A : ID
-{ : LBRACE
-} : RBRACE
-; : SEMI
-class : ID
-B : ID
-inherits : ID
-A : ID
-{ : LBRACE
-} : RBRACE
-; : SEMI
-<EOF> : EOF
-ANTLR Tool version 4.8 used for code generation does not match the current runtime version 4.11.1
-Exception in thread "main" java.lang.ExceptionInInitializerError
-	at cool.compiler.Compiler.main(Compiler.java:63)
-	at cool.tester.Tester1.main(Tester1.java:33)
-Caused by: java.lang.UnsupportedOperationException: java.io.InvalidClassException: org.antlr.v4.runtime.atn.ATN; Could not deserialize ATN with version 3 (expected 4).
-	at org.antlr.v4.runtime.atn.ATNDeserializer.deserialize(ATNDeserializer.java:56)
-	at org.antlr.v4.runtime.atn.ATNDeserializer.deserialize(ATNDeserializer.java:48)
-	at cool.parser.CoolParser.<clinit>(CoolParser.java:139)
-	... 2 more
-Caused by: java.io.InvalidClassException: org.antlr.v4.runtime.atn.ATN; Could not deserialize ATN with version 3 (expected 4).
-	... 5 more
+program
+  class
+    A
+  class
+    B
+    A
