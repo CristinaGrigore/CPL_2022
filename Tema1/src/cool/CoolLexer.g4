@@ -34,7 +34,9 @@ BOOL : 'true' | 'false';
 TYPE : 'Int' | 'Float' | 'Bool' | 'SELF_TYPE' | 'Object' | 'String';
 CLASS : 'class';
 INHERITS: 'inherits';
-
+NOT : 'not';
+ISVOID : 'isvoid';
+NEW : 'new';
 /* Identificator.
  */
 fragment LETTER : [a-zA-Z];
@@ -66,7 +68,8 @@ FLOAT : (DIGITS ('.' DIGITS?)? | '.' DIGITS) EXPONENT?;
  */
 STRING : '"' ('\\"' | .)*? '"'
     {
-      String my_str = getText().substring(1, my_str.length()-1);
+      String my_str = getText();
+      my_str = my_str.substring(1, my_str.length()-1);
       setText(my_str);
      };
 
@@ -103,6 +106,10 @@ COLON : ':';
 ASSIGN2 : '<-';
 
 NEG: '~';
+
+DISPATCH : '.';
+
+AT : '@';
 
 fragment NEW_LINE : '\r'? '\n';
 

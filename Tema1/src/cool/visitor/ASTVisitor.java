@@ -9,7 +9,7 @@ public interface ASTVisitor<T> {
 
     T visit(Prog prog);
 
-    T visit(Instruction instruction);
+  //  T visit(Instruction instruction);
 
     T visit(Formal formal);
     T visit(ASTclassMemberDef varDef);
@@ -20,5 +20,31 @@ public interface ASTVisitor<T> {
     T visit(Int iint);
     T visit(ASTString str);
     T visit(Bool bol);
+    T visit(Plus plus);
+    T visit(Minus minus);
 
+    T visit(Mult mult);
+
+    T visit(Div div);
+
+    T visit(Paren paren);
+
+    T visit(Negation negation);
+
+
+    T visit(ASTRelational relational);
+
+    T visit(Assign assign);
+
+    T visit(Not not);
+
+    T visit(IsVoid isVoid);
+
+    T visit(New aNew);
+
+    T visit(ImplicitDispatch implicitDispatch);
+
+    T visit(Dispatch dispatch);
+
+    T visit(If anIf);
 }

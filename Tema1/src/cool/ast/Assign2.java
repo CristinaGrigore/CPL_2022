@@ -4,11 +4,12 @@ import cool.visitor.ASTVisitor;
 import org.antlr.v4.runtime.Token;
 
 public class Assign2 extends Expression {
-    public Expression value;
-
-    public Assign2(Expression value) {
-        super("assign2");
-        this.value = value;
+    public Expression name;
+    public Expression e;
+    public Assign2(Expression name, Expression e) {
+        super("<-");
+        this.name = name;
+        this.e = e;
     }
 
     @Override

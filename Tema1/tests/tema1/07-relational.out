@@ -8,9 +8,16 @@ program
       b
       Bool
       not
-    n
+        <=
+          2
+          n
     attribute
       c
       Bool
-      1
-    false
+      =
+        <
+          2
+          +
+            n
+            1
+        false

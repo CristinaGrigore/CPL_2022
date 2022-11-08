@@ -1,10 +1,15 @@
-there are no strings in CPLang, but shhh..
-wfw
 program
   class
     A
-    id
-NULL
-    id
-    id
-    ASSIGN2
+    method
+      f
+      formal
+        x
+        Int
+      String
+      +
+        <-
+          x
+          x
+        1
+      Done!

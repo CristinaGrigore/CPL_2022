@@ -5,6 +5,7 @@ import cool.lexer.CoolLexer;
 import cool.parser.CoolParser;
 import cool.parser.CoolParserBaseVisitor;
 import cool.visitor.ASTVisitor;
+import jdk.jfr.Relational;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import org.stringtemplate.v4.compiler.Bytecode;
@@ -152,7 +153,7 @@ public class Compiler {
                             .stream()
                             .map(node -> (Expression)node.accept(this))
                             .collect(Collectors.toList());
-
+                  //  System.out.println("METH");
                     return new ASTmethodDef(ctx.returnType, ctx.name, params, body);
                 }
 
@@ -176,6 +177,103 @@ public class Compiler {
                 @Override
                 public ASTNode visitBool(CoolParser.BoolContext ctx) {
                     return new Bool(ctx.start);
+                }
+
+                //Arithmetic
+                @Override
+                public ASTNode visitPlusMinus(CoolParser.PlusMinusContext ctx) {
+
+                    var left = ctx.left == null ? null : (Expression)visit(ctx.left);
+                    var right = ctx.right == null ? null : (Expression)visit(ctx.right);
+
+                    if(ctx.op.getText().equals("+")== true) {
+
+                        return new Plus(left, right);
+                    }
+                    else return new Minus(left, right);
+                }
+
+                @Override
+                public ASTNode visitMultDiv(CoolParser.MultDivContext ctx) {
+               //     System.out.println("*//");
+                    var left = ctx.left == null ? null : (Expression)visit(ctx.left);
+                    var right = ctx.right == null ? null : (Expression)visit(ctx.right);
+
+                    if(ctx.op.getText().equals("*")== true) {
+
+                        return new Mult(left, right);
+                    }
+                    else return new Div(left, right);
+                }
+                public ASTNode visitParen(CoolParser.ParenContext ctx) {
+                    var expr = ctx.e == null ? null : (Expression)visit(ctx.e);
+                    return new Paren(expr);
+                }
+                @Override
+                public ASTNode visitNeg(CoolParser.NegContext ctx) {
+                    var expr = ctx.e == null ? null : (Expression)visit(ctx.e);
+                    return new Negation(ctx.op, expr);
+                }
+                @Override
+                public ASTNode visitNot(CoolParser.NotContext ctx) {
+                    var expr = ctx.e == null ? null : (Expression)visit(ctx.e);
+                    return new Not(ctx.op, expr);
+                }
+                @Override
+                public ASTNode visitRelational(CoolParser.RelationalContext ctx) {
+                   // System.out.println("rel");
+                    var left = ctx.left == null ? null : (Expression)visit(ctx.left);
+                    var right = ctx.right == null ? null : (Expression)visit(ctx.right);
+                    return new ASTRelational(ctx.op, left, right);
+                }
+                @Override
+                public ASTNode visitAssign(CoolParser.AssignContext ctx) {
+                    var name = ctx.name == null ? null : (Expression)visit(ctx.name);
+                    var e = ctx.e == null ? null : (Expression)visit(ctx.e);
+                    return new Assign(name, e);
+                }
+                @Override
+                public ASTNode visitAssign2(CoolParser.Assign2Context ctx) {
+                    var name = ctx.name == null ? null : (Expression)visit(ctx.name);
+                    var e = ctx.e == null ? null : (Expression)visit(ctx.e);
+                    return new Assign2(name, e);
+                }
+                @Override
+                public ASTNode visitIsvoid(CoolParser.IsvoidContext ctx) {
+                    var expr = ctx.e == null? null : (Expression)visit(ctx.e);
+                    return new IsVoid(expr);
+                }
+                @Override
+                public ASTNode visitNew(CoolParser.NewContext ctx) {
+                    var expr = ctx.e == null? null : (Expression)visit(ctx.e);
+                    return new New(expr);
+                }
+                @Override
+                public ASTNode visitImplicitDispatch(CoolParser.ImplicitDispatchContext ctx) {
+                    var args = ctx.args
+                            .stream()
+                            .map(node -> (Expression)visit(node))
+                            .collect(Collectors.toList());
+                    return new ImplicitDispatch(ctx.name, args);
+                }
+//                @Override
+//                public ASTNode visitDispatch(CoolParser.DispatchContext ctx) {
+//                    var expr1 = ctx.name == null ? null : (Expression)visit(ctx.name);
+//                  //  var expr3 = ctx.baseClass == null ? null : (Expression)visit(ctx.baseClass);
+//
+//
+//                    var args = ctx.params
+//                            .stream()
+//                            .map(node -> (Expression)visit(node))
+//                            .collect(Collectors.toList());
+//                    return null;
+//                }
+                @Override
+                public ASTNode visitIf(CoolParser.IfContext ctx) {
+                    var cond = ctx.cond == null ? null : (Expression)visit(ctx.cond);
+                    var thenBranch = ctx.thenBranch == null ? null : (Expression)visit(ctx.thenBranch);
+                    var elseBranch = ctx.elseBranch == null ? null : (Expression)visit(ctx.elseBranch);
+                    return new If(cond, thenBranch, elseBranch);
                 }
 
             };
@@ -210,12 +308,12 @@ public class Compiler {
                     return null;
                 }
 
-                @Override
-                public Void visit(Instruction instruction) {
-
-                    printIndent("INSTR");
-                    return null;
-                }
+//                @Override
+//                public Void visit(Instruction instruction) {
+//
+//                    printIndent("INSTR");
+//                    return null;
+//                }
 
                 @Override
                 public Void visit(Formal formal) {
@@ -251,7 +349,8 @@ public class Compiler {
                             .stream()
                             .map(this::visit)
                             .collect(Collectors.toList());
-                    printIndent(funcDef.returnType.getText());
+                    if(funcDef.returnType != null)
+                        printIndent(funcDef.returnType.getText());
                     funcDef.body
                             .stream()
                             .map(expr -> expr.accept(this))
@@ -281,7 +380,11 @@ public class Compiler {
 
                 @Override
                 public Void visit(Assign2 assign2) {
-                    printIndent("ASSIGN2");
+                    printIndent(assign2.str);
+                    indent += 2;
+                    assign2.name.accept(this);
+                    assign2.e.accept(this);
+                    indent -= 2;
                     return null;
                 }
 
@@ -302,6 +405,151 @@ public class Compiler {
                     printIndent(bol.str);
                     return null;
                 }
+
+                @Override
+                public Void visit(Plus plus) {
+                    printIndent("+");
+                    indent += 2;
+                    plus.left.accept(this);
+                    plus.right.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Minus minus) {
+                    printIndent("-");
+                    indent += 2;
+                    minus.left.accept(this);
+                    minus.right.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Mult mult) {
+                    printIndent("*");
+                    indent += 2;
+                    mult.left.accept(this);
+                    mult.right.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Div div) {
+                    printIndent("/");
+                    indent += 2;
+                    div.left.accept(this);
+                    div.right.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Paren paren) {
+                  //  printIndent("(");
+                  //  indent += 2;
+                    paren.e.accept(this);
+                //    indent -= 2;
+                  //  printIndent(")");
+                    return null;
+                }
+
+                @Override
+                public Void visit(Negation negation) {
+                    printIndent(negation.op.getText());
+                    indent += 2;
+                    negation.e.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(ASTRelational relational) {
+
+                    printIndent(relational.str);
+                    indent += 2;
+                    relational.left.accept(this);
+                    relational.right.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Assign assign) {
+                    printIndent(assign.str);
+                    indent += 2;
+                    assign.name.accept(this);
+                    assign.e.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Not not) {
+                    printIndent(not.str);
+                    indent += 2;
+                    not.e.accept(this);
+                    indent-=2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(IsVoid isVoid) {
+                    printIndent(isVoid.str);
+                    indent += 2;
+                    isVoid.expr.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(New aNew) {
+                    printIndent(aNew.str);
+                    indent += 2;
+                    aNew.e.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(ImplicitDispatch implicitDispatch) {
+                    printIndent(implicitDispatch.str);
+                    indent += 2;
+                    printIndent(implicitDispatch.name.getText());
+                    implicitDispatch.args.forEach(expr -> expr.accept(this));
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Dispatch dispatch) {
+                    printIndent(dispatch.str);
+                    indent += 2;
+                   // if(!dispatch.name.getText().equals("self"))
+                    dispatch.name.accept(this);
+                  //  if(dispatch.baseClass != null)
+                   //     dispatch.baseClass.accept(this);
+                 //   dispatch.name2.accept(this);
+                  //  dispatch.args.forEach(expr -> expr.accept(this));
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(If anIf) {
+                    printIndent(anIf.str);
+                    indent += 2;
+                    anIf.cond.accept(this);
+                    anIf.thenBranch.accept(this);
+                    if(anIf.elseBranch != null) {
+                        anIf.elseBranch.accept(this);
+                    }
+                    indent -= 2;
+                    return null;
+                }
+
 
                 void printIndent(String str) {
                     for (int i = 0; i < indent; i++)

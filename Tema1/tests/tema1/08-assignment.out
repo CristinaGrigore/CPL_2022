@@ -10,8 +10,9 @@ program
         y
         Int
       Int
-      x
-      y
+      <-
+        x
+        y
     method
       f
       formal
@@ -21,6 +22,8 @@ program
         z
         Int
       Int
-      x
-      y
-      z
+      <-
+        x
+        <-
+          y
+          z

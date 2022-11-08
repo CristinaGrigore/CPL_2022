@@ -13,7 +13,7 @@ program
         ;
 
     definition
-        :   name=ID COLON type=TYPE (ASSIGN2 init=expr)? (SEMI)?   # memberDef
+        :   name=ID COLON type=TYPE (ASSIGN2 init=expr)? SEMI   # memberDef
         |   name=ID LPAREN (params+=formal (COMMA params+=formal)*)?
           RPAREN COLON returnType=TYPE LBRACE (body+=expr)* RBRACE SEMI	# methodDef
         ;
@@ -53,17 +53,22 @@ program
      * din arbore.
      */
     expr
-        :   name=ID LPAREN (args+=expr (COMMA args+=expr)*)? RPAREN     # call
+        :   name=ID LPAREN (args+=expr (COMMA args+=expr)*)? RPAREN     # implicitDispatch
         |   MINUS e=expr                                                # unaryMinus
         |   left=expr op=(MULT | DIV) right=expr                        # multDiv
         |   left=expr op=(PLUS | MINUS) right=expr                      # plusMinus
-        |   left=expr op=(LT | LE | EQUAL) right=expr                   # relational
+        |   left=expr op=(LT | LE | EQUAL) right=expr                  # relational
         |   IF cond=expr THEN thenBranch=expr ELSE elseBranch=expr FI   # if
-        |   name=ID ASSIGN e=expr SEMI                                      # assign
+        |   name=expr ASSIGN e=expr                                      # assign
+        | name=expr (ASSIGN2 e=expr)+                                   #assign2
         |   LPAREN e=expr RPAREN                                        # paren
         |   ID                                                          # id
         |   INT                                                         # int
         |   FLOAT                                                       # float
         |   BOOL                                                        # bool
         |   STRING                                                      # string
+         | op= NEG  e=expr                                            #neg
+         | op= NOT  e=expr                                            #not
+         | ISVOID (e=expr)  #isvoid
+         | NEW e=expr  #new
         ;

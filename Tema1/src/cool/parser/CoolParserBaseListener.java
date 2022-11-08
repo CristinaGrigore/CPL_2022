@@ -90,6 +90,18 @@ public class CoolParserBaseListener implements CoolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNew(CoolParser.NewContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNew(CoolParser.NewContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPlusMinus(CoolParser.PlusMinusContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -126,6 +138,18 @@ public class CoolParserBaseListener implements CoolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIsvoid(CoolParser.IsvoidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIsvoid(CoolParser.IsvoidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFloat(CoolParser.FloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -133,6 +157,18 @@ public class CoolParserBaseListener implements CoolParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFloat(CoolParser.FloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImplicitDispatch(CoolParser.ImplicitDispatchContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImplicitDispatch(CoolParser.ImplicitDispatchContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -150,13 +186,13 @@ public class CoolParserBaseListener implements CoolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCall(CoolParser.CallContext ctx) { }
+	@Override public void enterNeg(CoolParser.NegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCall(CoolParser.CallContext ctx) { }
+	@Override public void exitNeg(CoolParser.NegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -169,6 +205,18 @@ public class CoolParserBaseListener implements CoolParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParen(CoolParser.ParenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNot(CoolParser.NotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNot(CoolParser.NotContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -217,6 +265,18 @@ public class CoolParserBaseListener implements CoolParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitId(CoolParser.IdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssign2(CoolParser.Assign2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssign2(CoolParser.Assign2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

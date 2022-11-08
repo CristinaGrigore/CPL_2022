@@ -1,12 +1,20 @@
-wfw
 program
   class
     A
-    id
-NULL
-    id
-    id
-    id
-    id
-    ASSIGN2
-    id
+    method
+      f
+      formal
+        x
+        Int
+      Object
+      while
+      <
+        0
+        x
+      loop
+      <-
+        x
+        -
+          x
+          1
+      pool
