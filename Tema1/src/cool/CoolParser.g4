@@ -11,13 +11,13 @@ options {
 program
         :   (class_definitions+=classDef )* EOF
         ;
-
+   varDef: name=ID COLON type=TYPE (ASSIGN2 value=expr)?;
     definition
         :   name=ID COLON type=TYPE (ASSIGN2 init=expr)? SEMI   # memberDef
         |   name=ID LPAREN (params+=formal (COMMA params+=formal)*)?
           RPAREN COLON returnType=TYPE LBRACE (body+=expr)* RBRACE SEMI	# methodDef
         ;
-    classDef: CLASS name=ID (INHERITS name2=ID)? LBRACE (content+=instruction)* RBRACE SEMI;
+    classDef: CLASS name=TYPE (INHERITS name2=TYPE)? LBRACE (content+=instruction)* RBRACE SEMI;
     instruction
         :   (definition | expr)
         ;
@@ -52,17 +52,27 @@ program
      * conține și câmpurile cond, thenBranch și elseBranch, având tipurile nodurilor
      * din arbore.
      */
+    caseOptions: name=ID COLON type=TYPE RESULT value=expr SEMI;
+    funcCall: name=ID LPAREN (args+=expr (COMMA args+=expr)*)? RPAREN;
     expr
         :   name=ID LPAREN (args+=expr (COMMA args+=expr)*)? RPAREN     # implicitDispatch
+        |   left=expr DISPATCH right=funcCall                               #dispatch
+        |   left=expr AT typee=TYPE  DISPATCH rightt=funcCall             #other_dispatch
         |   MINUS e=expr                                                # unaryMinus
         |   left=expr op=(MULT | DIV) right=expr                        # multDiv
         |   left=expr op=(PLUS | MINUS) right=expr                      # plusMinus
         |   left=expr op=(LT | LE | EQUAL) right=expr                  # relational
+
         |   IF cond=expr THEN thenBranch=expr ELSE elseBranch=expr FI   # if
+        |   WHILE cond=expr LOOP body=expr POOL                         # while
+        | LET members+=varDef (COMMA members+=varDef)* IN body=expr	    #let
+        | CASE name=expr OF (options+=caseOptions)+ ESAC	               #case
+        |   LBRACE (statements+=expr SEMI)+ RBRACE                            #block
         |   name=expr ASSIGN e=expr                                      # assign
         | name=expr (ASSIGN2 e=expr)+                                   #assign2
         |   LPAREN e=expr RPAREN                                        # paren
         |   ID                                                          # id
+        |   TYPE                                                        # type
         |   INT                                                         # int
         |   FLOAT                                                       # float
         |   BOOL                                                        # bool
@@ -70,5 +80,5 @@ program
          | op= NEG  e=expr                                            #neg
          | op= NOT  e=expr                                            #not
          | ISVOID (e=expr)  #isvoid
-         | NEW e=expr  #new
+         | NEW e=TYPE  #new
         ;

@@ -20,6 +20,16 @@ public interface CoolParserListener extends ParseTreeListener {
 	 */
 	void exitProgram(CoolParser.ProgramContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CoolParser#varDef}.
+	 * @param ctx the parse tree
+	 */
+	void enterVarDef(CoolParser.VarDefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CoolParser#varDef}.
+	 * @param ctx the parse tree
+	 */
+	void exitVarDef(CoolParser.VarDefContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code memberDef}
 	 * labeled alternative in {@link CoolParser#definition}.
 	 * @param ctx the parse tree
@@ -74,29 +84,37 @@ public interface CoolParserListener extends ParseTreeListener {
 	 */
 	void exitFormal(CoolParser.FormalContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code new}
-	 * labeled alternative in {@link CoolParser#expr}.
+	 * Enter a parse tree produced by {@link CoolParser#caseOptions}.
 	 * @param ctx the parse tree
 	 */
-	void enterNew(CoolParser.NewContext ctx);
+	void enterCaseOptions(CoolParser.CaseOptionsContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code new}
-	 * labeled alternative in {@link CoolParser#expr}.
+	 * Exit a parse tree produced by {@link CoolParser#caseOptions}.
 	 * @param ctx the parse tree
 	 */
-	void exitNew(CoolParser.NewContext ctx);
+	void exitCaseOptions(CoolParser.CaseOptionsContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code plusMinus}
-	 * labeled alternative in {@link CoolParser#expr}.
+	 * Enter a parse tree produced by {@link CoolParser#funcCall}.
 	 * @param ctx the parse tree
 	 */
-	void enterPlusMinus(CoolParser.PlusMinusContext ctx);
+	void enterFuncCall(CoolParser.FuncCallContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code plusMinus}
+	 * Exit a parse tree produced by {@link CoolParser#funcCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncCall(CoolParser.FuncCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code dispatch}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitPlusMinus(CoolParser.PlusMinusContext ctx);
+	void enterDispatch(CoolParser.DispatchContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code dispatch}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitDispatch(CoolParser.DispatchContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code bool}
 	 * labeled alternative in {@link CoolParser#expr}.
@@ -134,6 +152,42 @@ public interface CoolParserListener extends ParseTreeListener {
 	 */
 	void exitIsvoid(CoolParser.IsvoidContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code other_dispatch}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterOther_dispatch(CoolParser.Other_dispatchContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code other_dispatch}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitOther_dispatch(CoolParser.Other_dispatchContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code while}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhile(CoolParser.WhileContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code while}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhile(CoolParser.WhileContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code type}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterType(CoolParser.TypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code type}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitType(CoolParser.TypeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code float}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
@@ -145,30 +199,6 @@ public interface CoolParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFloat(CoolParser.FloatContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code implicitDispatch}
-	 * labeled alternative in {@link CoolParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterImplicitDispatch(CoolParser.ImplicitDispatchContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code implicitDispatch}
-	 * labeled alternative in {@link CoolParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitImplicitDispatch(CoolParser.ImplicitDispatchContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code int}
-	 * labeled alternative in {@link CoolParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterInt(CoolParser.IntContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code int}
-	 * labeled alternative in {@link CoolParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitInt(CoolParser.IntContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code neg}
 	 * labeled alternative in {@link CoolParser#expr}.
@@ -218,29 +248,29 @@ public interface CoolParserListener extends ParseTreeListener {
 	 */
 	void exitMultDiv(CoolParser.MultDivContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code unaryMinus}
+	 * Enter a parse tree produced by the {@code let}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterUnaryMinus(CoolParser.UnaryMinusContext ctx);
+	void enterLet(CoolParser.LetContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code unaryMinus}
+	 * Exit a parse tree produced by the {@code let}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitUnaryMinus(CoolParser.UnaryMinusContext ctx);
+	void exitLet(CoolParser.LetContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code relational}
+	 * Enter a parse tree produced by the {@code block}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterRelational(CoolParser.RelationalContext ctx);
+	void enterBlock(CoolParser.BlockContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code relational}
+	 * Exit a parse tree produced by the {@code block}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitRelational(CoolParser.RelationalContext ctx);
+	void exitBlock(CoolParser.BlockContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code id}
 	 * labeled alternative in {@link CoolParser#expr}.
@@ -277,6 +307,90 @@ public interface CoolParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIf(CoolParser.IfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code case}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterCase(CoolParser.CaseContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code case}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitCase(CoolParser.CaseContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code new}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterNew(CoolParser.NewContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code new}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitNew(CoolParser.NewContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code plusMinus}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterPlusMinus(CoolParser.PlusMinusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code plusMinus}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitPlusMinus(CoolParser.PlusMinusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code implicitDispatch}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterImplicitDispatch(CoolParser.ImplicitDispatchContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code implicitDispatch}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitImplicitDispatch(CoolParser.ImplicitDispatchContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code int}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterInt(CoolParser.IntContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code int}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitInt(CoolParser.IntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code unaryMinus}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryMinus(CoolParser.UnaryMinusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code unaryMinus}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryMinus(CoolParser.UnaryMinusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code relational}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelational(CoolParser.RelationalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code relational}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelational(CoolParser.RelationalContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code assign}
 	 * labeled alternative in {@link CoolParser#expr}.

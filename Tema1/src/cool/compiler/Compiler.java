@@ -118,7 +118,15 @@ public class Compiler {
             
             // Record any lexical or syntax errors.
             lexicalSyntaxErrors |= errorListener.errors;
-          //  System.out.println(tree.toStringTree(parser));
+            // Stop before semantic analysis phase, in case errors occurred.
+            if (lexicalSyntaxErrors) {
+                System.err.println("Compilation halted");
+                return;
+            }
+
+            // TODO Print tree
+            // Visitor-ul de mai jos parcurge arborele de derivare și construiește
+            // un arbore de sintaxă abstractă (AST).
             var astConstructionVisitor = new CoolParserBaseVisitor<ASTNode>() {
                 @Override
                 public ASTNode visitProgram(CoolParser.ProgramContext ctx) {
@@ -142,6 +150,11 @@ public class Compiler {
                 public ASTNode visitMemberDef(CoolParser.MemberDefContext ctx) {
                     var initValue = ctx.init == null ? null : (Expression)visit(ctx.init);
                     return new ASTclassMemberDef(ctx.name, ctx.type, initValue);
+                }
+                @Override
+                public ASTNode visitVarDef(CoolParser.VarDefContext ctx) {
+                    var initValue = ctx.value == null ? null : (Expression)visit(ctx.value);
+                    return new VarDef(ctx.name, ctx.type, initValue);
                 }
                 @Override
                 public ASTNode visitMethodDef(CoolParser.MethodDefContext ctx) {
@@ -245,8 +258,8 @@ public class Compiler {
                 }
                 @Override
                 public ASTNode visitNew(CoolParser.NewContext ctx) {
-                    var expr = ctx.e == null? null : (Expression)visit(ctx.e);
-                    return new New(expr);
+                 //   var expr = ctx.e == null? null : (Type)visit(ctx.e);
+                    return new New(ctx.TYPE().getSymbol());
                 }
                 @Override
                 public ASTNode visitImplicitDispatch(CoolParser.ImplicitDispatchContext ctx) {
@@ -256,18 +269,14 @@ public class Compiler {
                             .collect(Collectors.toList());
                     return new ImplicitDispatch(ctx.name, args);
                 }
-//                @Override
-//                public ASTNode visitDispatch(CoolParser.DispatchContext ctx) {
-//                    var expr1 = ctx.name == null ? null : (Expression)visit(ctx.name);
-//                  //  var expr3 = ctx.baseClass == null ? null : (Expression)visit(ctx.baseClass);
-//
-//
-//                    var args = ctx.params
-//                            .stream()
-//                            .map(node -> (Expression)visit(node))
-//                            .collect(Collectors.toList());
-//                    return null;
-//                }
+                @Override
+                public ASTNode visitFuncCall(CoolParser.FuncCallContext ctx) {
+                    var args = ctx.args
+                            .stream()
+                            .map(node -> (Expression)visit(node))
+                            .collect(Collectors.toList());
+                    return new FuncCall(ctx.name, args);
+                }
                 @Override
                 public ASTNode visitIf(CoolParser.IfContext ctx) {
                     var cond = ctx.cond == null ? null : (Expression)visit(ctx.cond);
@@ -275,7 +284,61 @@ public class Compiler {
                     var elseBranch = ctx.elseBranch == null ? null : (Expression)visit(ctx.elseBranch);
                     return new If(cond, thenBranch, elseBranch);
                 }
+                @Override
+                public ASTNode visitWhile(CoolParser.WhileContext ctx) {
+                    var cond = ctx.cond == null ? null : (Expression)visit(ctx.cond);
+                    var body = ctx.body == null ? null : (Expression)visit(ctx.body);
+                    return new While(cond, body);
 
+                }
+                @Override
+                public ASTNode visitLet(CoolParser.LetContext ctx) {
+                    var members = ctx.members
+                            .stream()
+                            .map(member -> (VarDef)visitVarDef(member))
+                            .collect(Collectors.toList());
+                    var body = ctx.body == null ? null : (Expression)visit(ctx.body);
+                    return new Let(members,body);
+                }
+                @Override
+                public ASTNode visitCase(CoolParser.CaseContext ctx) {
+                    var name = ctx.name == null ? null : (Expression)visit(ctx.name);
+                    var options = ctx.options
+                            .stream()
+                            .map(member -> (CaseOption)visitCaseOptions(member))
+                            .collect(Collectors.toList());
+                    return new Case(name, options);
+                }
+                @Override
+                public ASTNode visitCaseOptions(CoolParser.CaseOptionsContext ctx) {
+                    var value = ctx.value == null ? null : (Expression)visit(ctx.value);
+                    return new CaseOption(ctx.name, ctx.type, value);
+                }
+                @Override
+                public ASTNode visitBlock(CoolParser.BlockContext ctx) {
+                    var st = ctx.statements
+                            .stream()
+                            .map(statement -> (Expression)visit(statement))
+                            .collect(Collectors.toList());
+                    return new Block(st);
+                }
+                @Override
+                public ASTNode visitType(CoolParser.TypeContext ctx) {
+                    return new Type(ctx.start);
+                }
+                @Override
+                public ASTNode visitDispatch(CoolParser.DispatchContext ctx) {
+                    var value = ctx.left == null ? null : (Expression)visit(ctx.left);
+                    var call = (FuncCall)visit(ctx.right);
+                    return new Dispatch(value, call);
+                }
+                @Override
+                public ASTNode visitOther_dispatch(CoolParser.Other_dispatchContext ctx) {
+                    var value = ctx.left == null ? null : (Expression)visit(ctx.left);
+                    var call = (FuncCall)visit(ctx.rightt);
+                    var type = ctx.TYPE().getSymbol();
+                    return new OtherDispatch(value, type, call);
+                }
             };
             // ast este AST-ul proaspăt construit pe baza arborelui de derivare.
             var ast = astConstructionVisitor.visit(globalTree);
@@ -320,17 +383,20 @@ public class Compiler {
                     printIndent(formal.str);
                     indent+=2;
                     printIndent(formal.name.getText());
-                    printIndent(formal.type.getText());
+                    if(formal.type != null)
+                        printIndent(formal.type.getText());
                     indent-=2;
                     return null;
                 }
 
                 @Override
                 public Void visit(ASTclassMemberDef varDef) {
+                   // System.out.prinntln("var")
                     printIndent(varDef.str);
                     indent+=2;
                     printIndent(varDef.name.getText());
-                    printIndent(varDef.type.getText());
+                    if(varDef.type != null)
+                        printIndent(varDef.type.getText());
                     if(varDef.init != null)
                         varDef.init.accept(this);
                     indent-=2;
@@ -508,7 +574,7 @@ public class Compiler {
                 public Void visit(New aNew) {
                     printIndent(aNew.str);
                     indent += 2;
-                    aNew.e.accept(this);
+                    printIndent(aNew.e.getText());
                     indent -= 2;
                     return null;
                 }
@@ -527,12 +593,8 @@ public class Compiler {
                 public Void visit(Dispatch dispatch) {
                     printIndent(dispatch.str);
                     indent += 2;
-                   // if(!dispatch.name.getText().equals("self"))
-                    dispatch.name.accept(this);
-                  //  if(dispatch.baseClass != null)
-                   //     dispatch.baseClass.accept(this);
-                 //   dispatch.name2.accept(this);
-                  //  dispatch.args.forEach(expr -> expr.accept(this));
+                    dispatch.left.accept(this);
+                    dispatch.call.accept(this);
                     indent -= 2;
                     return null;
                 }
@@ -550,6 +612,101 @@ public class Compiler {
                     return null;
                 }
 
+                @Override
+                public Void visit(While aWhile) {
+                    printIndent(aWhile.str);
+                    indent += 2;
+                    aWhile.cond.accept(this);
+                    aWhile.body.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(VarDef varDef) {
+                    printIndent(varDef.str);
+                    indent+=2;
+                    if(varDef.name != null)
+                        printIndent(varDef.name.getText());
+                    if(varDef.type != null)
+                        printIndent(varDef.type.getText());
+                    if(varDef.expr != null)
+                        varDef.expr.accept(this);
+                    indent-=2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Let let) {
+                    printIndent(let.str);
+                    indent += 2;
+                    if(let.members != null)
+                        let.members.forEach(member -> member.accept(this));
+                    if(let.body != null)
+                        let.body.accept(this);
+                    indent -= 2;
+
+                    return null;
+                }
+
+                @Override
+                public Void visit(CaseOption caseOption) {
+                    printIndent(caseOption.str);
+                    indent += 2;
+                    if(caseOption.name != null)
+                        printIndent(caseOption.name.getText());
+                    if(caseOption.type != null)
+                        printIndent(caseOption.type.getText());
+                    if(caseOption.value != null)
+                        caseOption.value.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Case aCase) {
+                    printIndent(aCase.str);
+                    indent += 2;
+                    aCase.name.accept(this);
+                    aCase.options.forEach(opt -> opt.accept(this));
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Block block) {
+                    printIndent(block.str);
+                    indent += 2;
+                    block.expressions.forEach(e -> e.accept(this));
+                    indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(Type type) {
+                    printIndent(type.str);
+                    return null;
+                }
+
+                @Override
+                public Void visit(FuncCall funcCall) {
+                   // indent += 2;
+                    printIndent(funcCall.name.getText());
+                    funcCall.args.forEach(expr -> expr.accept(this));
+                   // indent -= 2;
+                    return null;
+                }
+
+                @Override
+                public Void visit(OtherDispatch otherDispatch) {
+                    printIndent(otherDispatch.type.getText());
+                    indent += 2;
+                    otherDispatch.left.accept(this);
+                    otherDispatch.call.accept(this);
+                    indent -= 2;
+                    return null;
+                }
+
 
                 void printIndent(String str) {
                     for (int i = 0; i < indent; i++)
@@ -561,15 +718,7 @@ public class Compiler {
             ast.accept(printVisitor);
         }
 
-        // Stop before semantic analysis phase, in case errors occurred.
-        if (lexicalSyntaxErrors) {
-            System.err.println("Compilation halted");
-            return;
-        }
-        
-        // TODO Print tree
-        // Visitor-ul de mai jos parcurge arborele de derivare și construiește
-        // un arbore de sintaxă abstractă (AST).
+
 
     }
 }

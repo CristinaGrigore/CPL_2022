@@ -19,6 +19,12 @@ public interface CoolParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(CoolParser.ProgramContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link CoolParser#varDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarDef(CoolParser.VarDefContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code memberDef}
 	 * labeled alternative in {@link CoolParser#definition}.
 	 * @param ctx the parse tree
@@ -51,19 +57,24 @@ public interface CoolParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFormal(CoolParser.FormalContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code new}
-	 * labeled alternative in {@link CoolParser#expr}.
+	 * Visit a parse tree produced by {@link CoolParser#caseOptions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNew(CoolParser.NewContext ctx);
+	T visitCaseOptions(CoolParser.CaseOptionsContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code plusMinus}
+	 * Visit a parse tree produced by {@link CoolParser#funcCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncCall(CoolParser.FuncCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code dispatch}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPlusMinus(CoolParser.PlusMinusContext ctx);
+	T visitDispatch(CoolParser.DispatchContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code bool}
 	 * labeled alternative in {@link CoolParser#expr}.
@@ -86,26 +97,33 @@ public interface CoolParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIsvoid(CoolParser.IsvoidContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code other_dispatch}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOther_dispatch(CoolParser.Other_dispatchContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code while}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhile(CoolParser.WhileContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code type}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitType(CoolParser.TypeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code float}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFloat(CoolParser.FloatContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code implicitDispatch}
-	 * labeled alternative in {@link CoolParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitImplicitDispatch(CoolParser.ImplicitDispatchContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code int}
-	 * labeled alternative in {@link CoolParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInt(CoolParser.IntContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code neg}
 	 * labeled alternative in {@link CoolParser#expr}.
@@ -135,19 +153,19 @@ public interface CoolParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMultDiv(CoolParser.MultDivContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code unaryMinus}
+	 * Visit a parse tree produced by the {@code let}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnaryMinus(CoolParser.UnaryMinusContext ctx);
+	T visitLet(CoolParser.LetContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code relational}
+	 * Visit a parse tree produced by the {@code block}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRelational(CoolParser.RelationalContext ctx);
+	T visitBlock(CoolParser.BlockContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code id}
 	 * labeled alternative in {@link CoolParser#expr}.
@@ -169,6 +187,55 @@ public interface CoolParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIf(CoolParser.IfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code case}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCase(CoolParser.CaseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code new}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNew(CoolParser.NewContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code plusMinus}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlusMinus(CoolParser.PlusMinusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code implicitDispatch}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImplicitDispatch(CoolParser.ImplicitDispatchContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code int}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInt(CoolParser.IntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code unaryMinus}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryMinus(CoolParser.UnaryMinusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code relational}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelational(CoolParser.RelationalContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code assign}
 	 * labeled alternative in {@link CoolParser#expr}.

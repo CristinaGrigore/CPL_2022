@@ -47,4 +47,22 @@ public interface ASTVisitor<T> {
     T visit(Dispatch dispatch);
 
     T visit(If anIf);
+
+    T visit(While aWhile);
+
+    T visit(VarDef varDef);
+
+    T visit(Let let);
+
+    T visit(CaseOption caseOption);
+
+    T visit(Case aCase);
+
+    T visit(Block block);
+
+    T visit(Type type);
+
+    T visit(FuncCall funcCall);
+
+    T visit(OtherDispatch otherDispatch);
 }
