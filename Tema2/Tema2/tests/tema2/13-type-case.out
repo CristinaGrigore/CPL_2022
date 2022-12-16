@@ -1,0 +1,262 @@
+program
+  class
+    A
+    method
+      f
+      formal
+        x
+        Int
+      Object
+      <-
+        x
+        case
+          x
+          case branch
+            x
+            Int
+            3
+    method
+      g
+      formal
+        x
+        Int
+      Object
+      <-
+        x
+        case
+          x
+          case branch
+            x
+            Int
+            3
+          case branch
+            y
+            String
+            3
+          case branch
+            z
+            Bool
+            true
+    method
+      h
+      formal
+        b
+        B
+      formal
+        c
+        C
+      formal
+        d
+        D
+      Object
+      <-
+        b
+        case
+          b
+          case branch
+            x
+            Int
+            b
+          case branch
+            y
+            String
+            c
+          case branch
+            z
+            Bool
+            d
+    method
+      i
+      formal
+        b
+        B
+      formal
+        c
+        C
+      formal
+        d
+        D
+      Object
+      <-
+        c
+        case
+          c
+          case branch
+            x
+            Int
+            b
+          case branch
+            y
+            String
+            c
+          case branch
+            z
+            Bool
+            d
+    method
+      j
+      formal
+        b
+        B
+      formal
+        c
+        C
+      formal
+        d
+        D
+      Object
+      <-
+        d
+        case
+          d
+          case branch
+            x
+            Int
+            b
+          case branch
+            y
+            String
+            c
+          case branch
+            z
+            Bool
+            d
+  class
+    B
+  class
+    C
+    B
+  class
+    D
+    C
+program
+  class
+    A
+    method
+      f
+      formal
+        x
+        Int
+      Object
+      <-
+        x
+        case
+          x
+          case branch
+            x
+            Int
+            3
+    method
+      g
+      formal
+        x
+        Int
+      Object
+      <-
+        x
+        case
+          x
+          case branch
+            x
+            Int
+            3
+          case branch
+            y
+            String
+            3
+          case branch
+            z
+            Bool
+            true
+    method
+      h
+      formal
+        b
+        B
+      formal
+        c
+        C
+      formal
+        d
+        D
+      Object
+      <-
+        b
+        case
+          b
+          case branch
+            x
+            Int
+            b
+          case branch
+            y
+            String
+            c
+          case branch
+            z
+            Bool
+            d
+    method
+      i
+      formal
+        b
+        B
+      formal
+        c
+        C
+      formal
+        d
+        D
+      Object
+      <-
+        c
+        case
+          c
+          case branch
+            x
+            Int
+            b
+          case branch
+            y
+            String
+            c
+          case branch
+            z
+            Bool
+            d
+    method
+      j
+      formal
+        b
+        B
+      formal
+        c
+        C
+      formal
+        d
+        D
+      Object
+      <-
+        d
+        case
+          d
+          case branch
+            x
+            Int
+            b
+          case branch
+            y
+            String
+            c
+          case branch
+            z
+            Bool
+            d
+  class
+    B
+  class
+    C
+    B
+  class
+    D
+    C

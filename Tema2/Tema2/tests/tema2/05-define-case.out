@@ -1,0 +1,60 @@
+program
+  class
+    A
+    attribute
+      x
+      Bool
+    method
+      f
+      formal
+        x
+        Int
+      Int
+      case
+        x
+        case branch
+          x
+          Int
+          x
+        case branch
+          self
+          Object
+          0
+        case branch
+          x
+          SELF_TYPE
+          0
+        case branch
+          x
+          C
+          0
+program
+  class
+    A
+    attribute
+      x
+      Bool
+    method
+      f
+      formal
+        x
+        Int
+      Int
+      case
+        x
+        case branch
+          x
+          Int
+          x
+        case branch
+          self
+          Object
+          0
+        case branch
+          x
+          SELF_TYPE
+          0
+        case branch
+          x
+          C
+          0
