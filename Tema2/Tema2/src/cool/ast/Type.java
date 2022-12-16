@@ -1,13 +1,14 @@
 package cool.ast;
 
 import cool.visitor.ASTVisitor;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 
 // Identificatori
 public class Type extends Expression {
     public Token value;
-    public Type(Token start) {
-        super(start);
+    public Type(Token start, ParserRuleContext context) {
+        super(start, context);
         this.value = value;
     }
 

@@ -1,66 +1,12 @@
-program
-  class
-    A
-    method
-      f
-      formal
-        x
-        Int
-      Object
-      <-
-        x
-        block
-          Done!
-          <-
-            x
-            +
-              x
-              1
-    method
-      g
-      formal
-        x
-        Int
-      Object
-      <-
-        x
-        block
-          <-
-            x
-            +
-              x
-              1
-          Oops!
-program
-  class
-    A
-    method
-      f
-      formal
-        x
-        Int
-      Object
-      <-
-        x
-        block
-          Done!
-          <-
-            x
-            +
-              x
-              1
-    method
-      g
-      formal
-        x
-        Int
-      Object
-      <-
-        x
-        block
-          <-
-            x
-            +
-              x
-              1
-          Oops!
+line 3:9, x undefined
+line 5:19, x undefined
+line 5:24, x undefined
+line 10:9, x undefined
+line 11:19, x undefined
+line 11:24, x undefined
+line 3:9, x undefined
+line 5:19, x undefined
+line 5:24, x undefined
+line 10:9, x undefined
+line 11:19, x undefined
+line 11:24, x undefined

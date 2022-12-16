@@ -1,100 +1,20 @@
-program
-  class
-    A
-    attribute
-      x
-      Bool
-    attribute
-      y
-      Int
-    attribute
-      b
-      B
-    attribute
-      c
-      C
-    method
-      f
-      Object
-      <-
-        b
-        b
-    method
-      g
-      Object
-      <-
-        b
-        c
-    method
-      h
-      Object
-      <-
-        c
-        b
-    method
-      i
-      Object
-      <-
-        self
-        self
-    method
-      j
-      Object
-      <-
-        x
-        y
-  class
-    B
-  class
-    C
-    B
-program
-  class
-    A
-    attribute
-      x
-      Bool
-    attribute
-      y
-      Int
-    attribute
-      b
-      B
-    attribute
-      c
-      C
-    method
-      f
-      Object
-      <-
-        b
-        b
-    method
-      g
-      Object
-      <-
-        b
-        c
-    method
-      h
-      Object
-      <-
-        c
-        b
-    method
-      i
-      Object
-      <-
-        self
-        self
-    method
-      j
-      Object
-      <-
-        x
-        y
-  class
-    B
-  class
-    C
-    B
+b
+b
+b
+c
+c
+b
+line 20:9, self undefined
+line 20:17, self undefined
+x
+y
+b
+b
+b
+c
+c
+b
+line 20:9, self undefined
+line 20:17, self undefined
+x
+y

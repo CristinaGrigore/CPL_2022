@@ -1,11 +1,17 @@
 package cool.visitor;
 
 import cool.ast.*;
+import cool.structures.Scope;
 import cool.structures.TypeSymbol;
 
 public class ASTResolutionPassVisitor  implements ASTVisitor<TypeSymbol>{
+ Scope scope;
  @Override
  public TypeSymbol visit(ASTclassDef asTclassDef) {
+  if(asTclassDef.type == null)
+   return null;
+  var scope = asTclassDef.type;
+  asTclassDef.content.forEach(node -> node.accept(this));
   return null;
  }
 
@@ -36,6 +42,10 @@ public class ASTResolutionPassVisitor  implements ASTVisitor<TypeSymbol>{
 
  @Override
  public TypeSymbol visit(ASTclassNode asTclassNode) {
+  if(asTclassNode.type == null)
+   return null;
+  var scope = asTclassNode.type;
+  asTclassNode.content.forEach(node -> node.accept(this));
   return null;
  }
 

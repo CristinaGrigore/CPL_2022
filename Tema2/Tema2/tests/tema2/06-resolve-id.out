@@ -1,82 +1,18 @@
-program
-  class
-    A
-    attribute
-      z
-      Int
-      x
-    attribute
-      x
-      Int
-      x
-    attribute
-      f
-      Bool
-    method
-      f
-      formal
-        f
-        Int
-      Int
-      let
-        local
-          y
-          Int
-          y
-        case
-          y
-          case branch
-            z
-            Int
-            <-
-              x
-              +
-                +
-                  x
-                  z
-                f
-    method
-      g
-      A
-      self
-program
-  class
-    A
-    attribute
-      z
-      Int
-      x
-    attribute
-      x
-      Int
-      x
-    attribute
-      f
-      Bool
-    method
-      f
-      formal
-        f
-        Int
-      Int
-      let
-        local
-          y
-          Int
-          y
-        case
-          y
-          case branch
-            z
-            Int
-            <-
-              x
-              +
-                +
-                  x
-                  z
-                f
-    method
-      g
-      A
-      self
+line 2:16, x undefined
+x
+line 9:24, y undefined
+line 11:18, y undefined
+x
+x
+z
+f
+line 16:15, self undefined
+line 2:16, x undefined
+x
+line 9:24, y undefined
+line 11:18, y undefined
+x
+x
+z
+f
+line 16:15, self undefined

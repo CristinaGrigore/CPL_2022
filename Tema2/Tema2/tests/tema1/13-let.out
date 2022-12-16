@@ -12,12 +12,12 @@ program
           x
           Int
           +
-            x
+line 3:24, x undefined
             1
         local
           y
           Int
           +
-            x
+line 4:24, x undefined
             1
-        x
+line 6:13, x undefined

@@ -1,50 +1,6 @@
-program
-  class
-    BB__
-    A
-  class
-    Int
-  class
-    C
-    Int
-  class
-    SELF_TYPE
-  class
-    D
-    SELF_TYPE
-  class
-    D
-  class
-    E
-    F
-  class
-    F
-    G
-  class
-    G
-    E
-program
-  class
-    BB__
-    A
-  class
-    Int
-  class
-    C
-    Int
-  class
-    SELF_TYPE
-  class
-    D
-    SELF_TYPE
-  class
-    D
-  class
-    E
-    F
-  class
-    F
-    G
-  class
-    G
-    E
+"01-define-class.cl", line 5:7, Semantic error: Class C has illegal parent Int
+"01-define-class.cl", line 7:7, Semantic error: Class has illegal name SELF_TYPE
+"01-define-class.cl", line 9:7, Semantic error: Class D has illegal parent SELF_TYPE
+"01-define-class.cl", line 5:7, Semantic error: Class C has illegal parent Int
+"01-define-class.cl", line 7:7, Semantic error: Class has illegal name SELF_TYPE
+"01-define-class.cl", line 9:7, Semantic error: Class D has illegal parent SELF_TYPE

@@ -8,7 +8,7 @@ program
         Object
       String
       case
-        x
+line 3:14, x undefined
         case branch
           s
           String

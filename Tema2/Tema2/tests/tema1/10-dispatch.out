@@ -10,7 +10,7 @@ program
       implicit dispatch
         f
         +
-          x
+line 3:11, x undefined
           1
     method
       g
@@ -22,13 +22,13 @@ program
         Int
       Bool
       .
-        self
+line 7:9, self undefined
         g
         +
-          x
+line 7:16, x undefined
           1
         +
-          y
+line 7:23, y undefined
           1
     method
       h
@@ -43,9 +43,9 @@ program
           A
           h
           +
-            x
+line 11:19, x undefined
             1
         h
         +
-          x
+line 11:28, x undefined
           2

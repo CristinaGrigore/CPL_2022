@@ -9,8 +9,8 @@ program
       String
       block
         <-
-          x
+line 4:13, x undefined
           +
-            x
+line 4:18, x undefined
             1
         Done!

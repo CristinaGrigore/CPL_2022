@@ -1,11 +1,11 @@
 package cool.ast;
 
-import cool.visitor.ASTVisitor;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 
 public abstract class Instruction extends ASTNode {
-    public Instruction(Token name) {
-        super(name);
+    public Instruction(Token name, ParserRuleContext context) {
+        super(name, context);
     }
 
    // public <T> T accept(ASTVisitor<T> visitor) {

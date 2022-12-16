@@ -9,9 +9,9 @@ program
       Int
       if
         <=
-          x
+line 3:12, x undefined
           5
-        x
+line 3:24, x undefined
         +
-          x
+line 3:31, x undefined
           1

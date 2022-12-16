@@ -1,48 +1,6 @@
-program
-  class
-    B
-    A
-    attribute
-      x
-      Int
-  class
-    A
-    attribute
-      self
-      Int
-    attribute
-      x
-      Bool
-    attribute
-      x
-      Int
-    attribute
-      y
-      C
-    attribute
-      x
-      C
-program
-  class
-    B
-    A
-    attribute
-      x
-      Int
-  class
-    A
-    attribute
-      self
-      Int
-    attribute
-      x
-      Bool
-    attribute
-      x
-      Int
-    attribute
-      y
-      C
-    attribute
-      x
-      C
+line 7:5, var x redefined
+line 8:5, var x redefined
+line 10:5, var x redefined
+line 7:5, var x redefined
+line 8:5, var x redefined
+line 10:5, var x redefined

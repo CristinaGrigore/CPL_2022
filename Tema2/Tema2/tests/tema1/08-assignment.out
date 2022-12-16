@@ -12,7 +12,7 @@ program
       Int
       <-
         x
-        y
+line 5:14, y undefined
     method
       f
       formal
@@ -25,5 +25,5 @@ program
       <-
         x
         <-
-          y
-          z
+line 9:14, y undefined
+line 9:19, z undefined

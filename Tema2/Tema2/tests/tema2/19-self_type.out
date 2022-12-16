@@ -1,284 +1,52 @@
-program
-  class
-    A
-    attribute
-      x
-      SELF_TYPE
-      self
-    attribute
-      u
-      Int
-    method
-      h
-      formal
-        y
-        SELF_TYPE
-      SELF_TYPE
-      block
-        let
-          local
-            z
-            SELF_TYPE
-          +
-            z
-            1
-        if
-          true
-          self
-          x
-        <-
-          x
-          if
-            true
-            self
-            0
-        <-
-          x
-          new
-            SELF_TYPE
-        <-
-          u
-          new
-            SELF_TYPE
-        0
-    method
-      f1
-      SELF_TYPE
-      self
-    method
-      f2
-      A
-      self
-  class
-    B
-    A
-    method
-      g
-      Int
-      0
-  class
-    C
-    B
-    method
-      i
-      Object
-      let
-        local
-          a
-          A
-          new
-            B
-        local
-          b
-          B
-          new
-            B
-        block
-          .
-            a
-            f1
-          .
-            a
-            g
-          .
-            .
-              a
-              f1
-            g
-          .
-            b
-            f1
-          .
-            b
-            g
-          .
-            .
-              b
-              f1
-            g
-          .
-            b
-            f2
-          .
-            b
-            g
-          .
-            .
-              b
-              f2
-            g
-          <-
-            b
-            .
-              b
-              A
-              f1
-          .
-            b
-            A
-            g
-          .
-            .
-              b
-              A
-              f1
-            g
-          <-
-            x
-            .
-              self
-              f1
-          <-
-            x
-            implicit dispatch
-              f1
-  class
-    D
-    C
-    method
-      f1
-      SELF_TYPE
-      new
-        D
-program
-  class
-    A
-    attribute
-      x
-      SELF_TYPE
-      self
-    attribute
-      u
-      Int
-    method
-      h
-      formal
-        y
-        SELF_TYPE
-      SELF_TYPE
-      block
-        let
-          local
-            z
-            SELF_TYPE
-          +
-            z
-            1
-        if
-          true
-          self
-          x
-        <-
-          x
-          if
-            true
-            self
-            0
-        <-
-          x
-          new
-            SELF_TYPE
-        <-
-          u
-          new
-            SELF_TYPE
-        0
-    method
-      f1
-      SELF_TYPE
-      self
-    method
-      f2
-      A
-      self
-  class
-    B
-    A
-    method
-      g
-      Int
-      0
-  class
-    C
-    B
-    method
-      i
-      Object
-      let
-        local
-          a
-          A
-          new
-            B
-        local
-          b
-          B
-          new
-            B
-        block
-          .
-            a
-            f1
-          .
-            a
-            g
-          .
-            .
-              a
-              f1
-            g
-          .
-            b
-            f1
-          .
-            b
-            g
-          .
-            .
-              b
-              f1
-            g
-          .
-            b
-            f2
-          .
-            b
-            g
-          .
-            .
-              b
-              f2
-            g
-          <-
-            b
-            .
-              b
-              A
-              f1
-          .
-            b
-            A
-            g
-          .
-            .
-              b
-              A
-              f1
-            g
-          <-
-            x
-            .
-              self
-              f1
-          <-
-            x
-            implicit dispatch
-              f1
-  class
-    D
-    C
-    method
-      f1
-      SELF_TYPE
-      new
-        D
+line 2:22, self undefined
+line 7:35, z undefined
+line 9:26, self undefined
+x
+x
+line 10:31, self undefined
+x
+u
+line 18:24, self undefined
+line 20:16, self undefined
+line 33:17, a undefined
+line 34:17, a undefined
+line 35:17, a undefined
+line 37:17, b undefined
+line 38:17, b undefined
+line 39:17, b undefined
+line 41:17, b undefined
+line 42:17, b undefined
+line 43:17, b undefined
+line 45:17, b undefined
+line 45:22, b undefined
+line 46:17, b undefined
+line 47:17, b undefined
+x
+line 49:22, self undefined
+x
+line 2:22, self undefined
+line 7:35, z undefined
+line 9:26, self undefined
+x
+x
+line 10:31, self undefined
+x
+u
+line 18:24, self undefined
+line 20:16, self undefined
+line 33:17, a undefined
+line 34:17, a undefined
+line 35:17, a undefined
+line 37:17, b undefined
+line 38:17, b undefined
+line 39:17, b undefined
+line 41:17, b undefined
+line 42:17, b undefined
+line 43:17, b undefined
+line 45:17, b undefined
+line 45:22, b undefined
+line 46:17, b undefined
+line 47:17, b undefined
+x
+line 49:22, self undefined
+x

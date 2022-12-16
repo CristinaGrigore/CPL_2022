@@ -1,132 +1,26 @@
-program
-  class
-    A
-    method
-      f
-      formal
-        x
-        Int
-      Object
-      <-
-        x
-        if
-          <=
-            x
-            5
-          x
-          +
-            x
-            1
-    method
-      g
-      formal
-        x
-        Int
-      Object
-      <-
-        x
-        if
-          x
-          x
-          true
-    method
-      h
-      formal
-        b
-        B
-      formal
-        c
-        C
-      Object
-      <-
-        b
-        if
-          true
-          b
-          c
-    method
-      i
-      formal
-        b
-        B
-      formal
-        c
-        C
-      Object
-      <-
-        c
-        if
-          true
-          b
-          c
-  class
-    B
-  class
-    C
-    B
-program
-  class
-    A
-    method
-      f
-      formal
-        x
-        Int
-      Object
-      <-
-        x
-        if
-          <=
-            x
-            5
-          x
-          +
-            x
-            1
-    method
-      g
-      formal
-        x
-        Int
-      Object
-      <-
-        x
-        if
-          x
-          x
-          true
-    method
-      h
-      formal
-        b
-        B
-      formal
-        c
-        C
-      Object
-      <-
-        b
-        if
-          true
-          b
-          c
-    method
-      i
-      formal
-        b
-        B
-      formal
-        c
-        C
-      Object
-      <-
-        c
-        if
-          true
-          b
-          c
-  class
-    B
-  class
-    C
-    B
+line 3:9, x undefined
+line 3:17, x undefined
+line 3:29, x undefined
+line 3:36, x undefined
+line 7:9, x undefined
+line 7:17, x undefined
+line 7:24, x undefined
+line 11:9, b undefined
+line 11:27, b undefined
+line 11:34, c undefined
+line 15:9, c undefined
+line 15:27, b undefined
+line 15:34, c undefined
+line 3:9, x undefined
+line 3:17, x undefined
+line 3:29, x undefined
+line 3:36, x undefined
+line 7:9, x undefined
+line 7:17, x undefined
+line 7:24, x undefined
+line 11:9, b undefined
+line 11:27, b undefined
+line 11:34, c undefined
+line 15:9, c undefined
+line 15:27, b undefined
+line 15:34, c undefined

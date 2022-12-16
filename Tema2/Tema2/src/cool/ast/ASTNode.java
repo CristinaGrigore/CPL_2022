@@ -1,16 +1,16 @@
 package cool.ast;
-import java.util.*;
-import jdk.jfr.Experimental;
 import cool.visitor.ASTVisitor;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 
 public abstract class ASTNode {
     // Reținem un token descriptiv, pentru a putea afișa ulterior
     // informații legate de linia și coloana eventualelor erori semantice.
     public Token token;
-
-    ASTNode(Token name) {
+    private final ParserRuleContext context;
+    ASTNode(Token name, ParserRuleContext context) {
         this.token = name;
+        this.context = context;
     }
 
     public Token getToken() {
@@ -19,5 +19,9 @@ public abstract class ASTNode {
 
     public <T> T accept(ASTVisitor<T> visitor) {
         return null;
+    }
+
+    public ParserRuleContext getContext() {
+        return context;
     }
 }

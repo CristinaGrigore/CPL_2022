@@ -1,150 +1,20 @@
-program
-  class
-    A
-    method
-      f
-      formal
-        u
-        Int
-      Object
-      <-
-        u
-        let
-          local
-            x
-            Int
-            +
-              u
-              1
-          local
-            y
-            Int
-            true
-          local
-            z
-            Int
-          local
-            b1
-            B
-            new
-              B
-          local
-            b2
-            B
-            new
-              C
-          local
-            c
-            C
-            new
-              B
-          +
-            +
-              x
-              y
-            z
-    method
-      g
-      formal
-        u
-        Bool
-      Object
-      <-
-        u
-        let
-          local
-            x
-            Int
-            1
-          local
-            y
-            Int
-            x
-          local
-            z
-            Int
-          +
-            +
-              x
-              y
-            z
-  class
-    B
-  class
-    C
-    B
-program
-  class
-    A
-    method
-      f
-      formal
-        u
-        Int
-      Object
-      <-
-        u
-        let
-          local
-            x
-            Int
-            +
-              u
-              1
-          local
-            y
-            Int
-            true
-          local
-            z
-            Int
-          local
-            b1
-            B
-            new
-              B
-          local
-            b2
-            B
-            new
-              C
-          local
-            c
-            C
-            new
-              B
-          +
-            +
-              x
-              y
-            z
-    method
-      g
-      formal
-        u
-        Bool
-      Object
-      <-
-        u
-        let
-          local
-            x
-            Int
-            1
-          local
-            y
-            Int
-            x
-          local
-            z
-            Int
-          +
-            +
-              x
-              y
-            z
-  class
-    B
-  class
-    C
-    B
+line 3:9, u undefined
+line 3:29, u undefined
+line 10:19, x undefined
+line 10:23, y undefined
+line 10:27, z undefined
+line 14:9, u undefined
+line 15:29, x undefined
+line 18:19, x undefined
+line 18:23, y undefined
+line 18:27, z undefined
+line 3:9, u undefined
+line 3:29, u undefined
+line 10:19, x undefined
+line 10:23, y undefined
+line 10:27, z undefined
+line 14:9, u undefined
+line 15:29, x undefined
+line 18:19, x undefined
+line 18:23, y undefined
+line 18:27, z undefined

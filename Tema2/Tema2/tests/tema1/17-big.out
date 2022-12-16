@@ -20,11 +20,11 @@ program
       block
         <-
           elem
-          e
+line 13:21, e undefined
         <-
           next
-          n
-        self
+line 14:21, n undefined
+line 15:13, self undefined
     method
       print
       IO
@@ -37,7 +37,7 @@ program
             case branch
               s
               String
-              s
+line 25:35, s undefined
             case branch
               n
               Int
@@ -45,7 +45,7 @@ program
                 new
                   A2I
                 i2a
-                n
+line 26:44, n undefined
             case branch
               o
               Object
@@ -57,7 +57,7 @@ program
           implicit dispatch
             out_string
             .
-              str
+line 31:28, str undefined
               concat
                
           if
@@ -90,7 +90,7 @@ program
             z
             Int
             +
-              x
+line 42:28, x undefined
               2
           local
             empty
@@ -102,20 +102,20 @@ program
               new
                 List
               init
-              x
+line 45:35, x undefined
               .
                 new
                   List
                 init
-                y
+line 46:39, y undefined
                 .
                   new
                     List
                   init
-                  z
-                  empty
+line 47:43, z undefined
+line 47:46, empty undefined
           .
-            list
+line 49:17, list undefined
             print
         let
           local
@@ -135,7 +135,7 @@ program
                 out_int
                 implicit dispatch
                   fact_rec
-                  n
+line 55:73, n undefined
               out_string
               
 
@@ -147,7 +147,7 @@ program
                 out_int
                 implicit dispatch
                   fact_iter
-                  n
+line 57:74, n undefined
               out_string
               
 
@@ -159,15 +159,15 @@ program
       Int
       if
         =
-          n
+line 65:12, n undefined
           0
         1
         *
-          n
+line 65:30, n undefined
           implicit dispatch
             fact_rec
             -
-              n
+line 65:43, n undefined
               1
     method
       fact_iter
@@ -184,17 +184,17 @@ program
           while
             not
               =
-                n
+line 75:29, n undefined
                 0
             block
               <-
-                res
+line 77:25, res undefined
                 *
-                  res
-                  n
+line 77:32, res undefined
+line 77:38, n undefined
               <-
-                n
+line 78:25, n undefined
                 -
-                  n
+line 78:30, n undefined
                   1
-          res
+line 81:17, res undefined

@@ -1,6 +1,7 @@
 package cool.ast;
 
 import cool.visitor.ASTVisitor;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 
 import java.util.List;
@@ -8,8 +9,8 @@ import java.util.List;
 public class FuncCall extends Expression {
     public Token name;
     public List<Expression> args;
-    public FuncCall(Token token, Token name, List<Expression> args) {
-        super(token);
+    public FuncCall(Token token, Token name, List<Expression> args, ParserRuleContext context) {
+        super(token, context);
         this.name = name;
         this.args = args;
     }

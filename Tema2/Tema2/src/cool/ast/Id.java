@@ -3,6 +3,7 @@ package cool.ast;
 import cool.structures.IdSymbol;
 import cool.structures.Scope;
 import cool.visitor.ASTVisitor;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 
 // Identificatori
@@ -11,8 +12,8 @@ public class Id extends Expression {
     private Scope scope;
     public Token value;
 
-    public Id(Token token, Token value) {
-        super(token);
+    public Id(Token token, Token value, ParserRuleContext context) {
+        super(token, context);
         this.value = value;
     }
 
