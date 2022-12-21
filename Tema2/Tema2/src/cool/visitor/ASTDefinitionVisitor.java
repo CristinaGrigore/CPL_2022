@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 public class ASTDefinitionVisitor  implements ASTVisitor<Void> {
  int indent = 0;
- private Scope scope;
  Scope currentScope = null;
  @Override
  public Void visit(ASTclassDef asTclassDef) {
@@ -57,13 +56,32 @@ public class ASTDefinitionVisitor  implements ASTVisitor<Void> {
  public Void visit(ASTclassMemberDef varDef) {
   var id = varDef.name;
   var symbol = new IdSymbol(id.getText());
+  var context = varDef.getContext();
 
-  if (!currentScope.add(symbol)) {
-   ASTVisitor.error(id,
-           "var " + id.getText() + " redefined"
+  if(varDef.name.getText().equals("self"))
+  {
+   SymbolTable.error(context,
+           varDef.name,
+           "Class " + ((TypeSymbol)currentScope).getName() + " has attribute with illegal name " + varDef.name.getText()
    );
    return null;
   }
+  if (!currentScope.add(symbol)) {
+   SymbolTable.error(context,
+           id,
+           "Class " + ((TypeSymbol) currentScope).getName() + " redefines attribute " + id.getText()
+   );
+   return null;
+  }
+   var attribType = varDef.type.getText();
+
+   if(SymbolTable.globals.lookup(attribType) == null) {
+    SymbolTable.error(context,
+            varDef.type,
+            "Class " + ((TypeSymbol)currentScope).getName() + " has attribute " + varDef.name.getText() + " with undefined type " + attribType
+    );
+    return null;
+   }
 
   if(varDef.init != null)
    varDef.init.accept(this);
@@ -74,6 +92,19 @@ public class ASTDefinitionVisitor  implements ASTVisitor<Void> {
 
  @Override
  public Void visit(ASTmethodDef funcDef) {
+  var id = funcDef.name;
+  var symbol = new MethodSymbol(id.getText());
+  var context = funcDef.getContext();
+
+  if(!currentScope.add(symbol))
+  {
+   SymbolTable.error(context,
+                     id,
+                      "Class " + ((TypeSymbol)currentScope).getName() + " redefines method " + id.getText()
+   );
+  }
+
+ funcDef.methodSymbol = symbol;
 
   funcDef
           .params
@@ -93,8 +124,9 @@ public class ASTDefinitionVisitor  implements ASTVisitor<Void> {
  public Void visit(ASTclassNode asTclassNode) {
   var symbol = currentScope.lookup(asTclassNode.getToken().getText());
   var className = asTclassNode.name.getText();
-  var parentName = asTclassNode.name2 == null ? "" : asTclassNode.name2.getText();
+  var parentName = asTclassNode.name2 == null ? "Object" : asTclassNode.name2.getText();
   var context = asTclassNode.getContext();
+
   if(className.equals("SELF_TYPE"))
   {
     SymbolTable.error(context,
@@ -103,16 +135,10 @@ public class ASTDefinitionVisitor  implements ASTVisitor<Void> {
     );
     return null;
   }
-  if(parentName.equals("SELF_TYPE") || parentName.equals("Int")
-  || parentName.equals("String") || parentName.equals("Bool"))
-  {
-    SymbolTable.error(context,
-            asTclassNode.name,
-            "Class " + className + " has illegal parent " + parentName
-    );
-    return null;
-  }
-  var type = new TypeSymbol(className, parentName);
+
+  var type = new TypeSymbol(className,
+          parentName);
+
   if (!SymbolTable.globals.add(type)) {
    SymbolTable.error(
            asTclassNode.getContext(),
@@ -121,8 +147,18 @@ public class ASTDefinitionVisitor  implements ASTVisitor<Void> {
    );
    return null;
   }
+  if(parentName.equals("SELF_TYPE") || parentName.equals("Int")
+  || parentName.equals("String") || parentName.equals("Bool"))
+  {
+    SymbolTable.error(context,
+            asTclassNode.name2,
+            "Class " + className + " has illegal parent " + parentName
+    );
+    return null;
+  }
+
   asTclassNode.type = type;
-  scope = type;
+  currentScope = type;
   asTclassNode.content.forEach(
           instr -> {
             instr.accept(this);

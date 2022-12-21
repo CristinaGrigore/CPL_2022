@@ -1,3 +1,5 @@
+"09-type-assignment.cl", line 4:9, Semantic error: Class A has attribute b with undefined type B
+"09-type-assignment.cl", line 5:9, Semantic error: Class A has attribute c with undefined type C
 b
 b
 b
@@ -8,13 +10,4 @@ line 20:9, self undefined
 line 20:17, self undefined
 x
 y
-b
-b
-b
-c
-c
-b
-line 20:9, self undefined
-line 20:17, self undefined
-x
-y
+Compilation halted

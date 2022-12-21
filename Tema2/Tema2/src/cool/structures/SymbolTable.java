@@ -17,6 +17,7 @@ public class SymbolTable {
         semanticErrors = false;
         
         // TODO Populate global scope.
+        //pt erori de tip redefinire clase de baza
         globals.add(TypeSymbol.OBJECT);
         globals.add(TypeSymbol.INT);
         globals.add(TypeSymbol.BOOL);

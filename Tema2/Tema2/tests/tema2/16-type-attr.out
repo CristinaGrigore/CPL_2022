@@ -1,0 +1,4 @@
+"16-type-attr.cl", line 5:10, Semantic error: Class A has attribute b1 with undefined type B
+"16-type-attr.cl", line 6:10, Semantic error: Class A has attribute b2 with undefined type B
+"16-type-attr.cl", line 7:10, Semantic error: Class A has attribute c with undefined type C
+Compilation halted

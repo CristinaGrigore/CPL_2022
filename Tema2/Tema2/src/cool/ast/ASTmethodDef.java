@@ -1,5 +1,6 @@
 package cool.ast;
 
+import cool.structures.MethodSymbol;
 import cool.visitor.ASTVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
@@ -12,7 +13,7 @@ public class ASTmethodDef extends Instruction {
 
     public Token returnType;
     public List<Expression> body;
-
+    public MethodSymbol methodSymbol;
     public ASTmethodDef(Token token, Token type, Token name, List<Formal> formals, List<Expression> body, ParserRuleContext context) {
         super(token, context);
         this.returnType = type;
