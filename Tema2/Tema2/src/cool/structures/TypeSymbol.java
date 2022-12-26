@@ -87,23 +87,13 @@ public class TypeSymbol extends Symbol implements Scope {
  //recursive method to determine if types of assigned variables are compatible
  //(they have the same type or one inherits the other)
  public boolean isCompatible(TypeSymbol type) {
-  //System.out.println("type " + type.getName() + " this " + this.getName());
-  if(this.getName().equals(type.getName()))
-  {
-  // System.out.println("YAY1");
-   return true;
-  }
   if (this == type) {
-  // System.out.println("YAY2");
    return true;
   }
-  if(this == SELF_TYPE || type == SELF_TYPE || this == OBJECT || type == OBJECT)
-   return true;
-  //System.out.println("NO " + this + " " + type);
   if (parent != null) {
    return parent.isCompatible(type);
   }
-  System.out.println("parent null");
+
   return false;
  }
 }

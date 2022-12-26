@@ -72,7 +72,8 @@ public class ASTResolutionPassVisitor  implements ASTVisitor<TypeSymbol>{
    return null;
   }
   var parentScope = scope.getParent();
-  if (parentScope!= null && parentScope.lookup(varDef.name.getText()) != null) {
+
+  if (parentScope.lookup(varDef.name.getText()) != null) {
    SymbolTable.error(
            context,
            varDef.name,
@@ -92,19 +93,8 @@ public class ASTResolutionPassVisitor  implements ASTVisitor<TypeSymbol>{
    varDef.setSymbol(null);
    return null;
   }
-
   if(varDef.init != null)
-  {
-   var initType = varDef.init.accept(this);
-   if(initType != null && !initType.isCompatible((TypeSymbol) typeSymbol) )
-   {
-    SymbolTable.error(context,
-            varDef.init.getToken(),
-            "Type " + initType.getName() +  " of initialization expression of attribute "  + varDef.name.getText()
-                    + " is incompatible with declared type " + typeSymbol.getName());
-   }
-  }
-
+   varDef.init.accept(this);
   varDef.getSymbol().setType((TypeSymbol) typeSymbol);
   return (TypeSymbol) typeSymbol;
  }
@@ -113,7 +103,6 @@ public class ASTResolutionPassVisitor  implements ASTVisitor<TypeSymbol>{
  public TypeSymbol visit(ASTmethodDef funcDef) {
   var id = funcDef.name;
   var symbol = funcDef.methodSymbol;
-  var currentScope = (TypeSymbol)scope;
   if(symbol == null)
    return null;
   var context = funcDef.getContext();
@@ -121,7 +110,7 @@ public class ASTResolutionPassVisitor  implements ASTVisitor<TypeSymbol>{
 
   var returnType = funcDef.returnType;
   var retType = SymbolTable.globals.lookup(returnType.getText());
-  if(retType == null)
+  if(SymbolTable.globals.lookup(returnType.getText()) == null)
   {
    SymbolTable.error(context,
            funcDef.returnType,
@@ -131,8 +120,6 @@ public class ASTResolutionPassVisitor  implements ASTVisitor<TypeSymbol>{
   }
   symbol.setReturnType((TypeSymbol) retType);
   var nrParams = funcDef.params.size();
-  if(parentScope == null)
-   return null;
   var overriddenMethod = ((TypeSymbol)parentScope).lookupMethod(id.getText());
   var parentMethod = (parentScope).lookup(id.getText());
 
@@ -185,27 +172,56 @@ public class ASTResolutionPassVisitor  implements ASTVisitor<TypeSymbol>{
   }
   scope = symbol;
   var body = funcDef.body;
-  TypeSymbol bodyRetType = null;
-  for(Expression e : body)
-  {
-   bodyRetType = e.accept(this);
-  }
-
-  if(bodyRetType != null && !(bodyRetType).isCompatible((TypeSymbol) retType))
-   SymbolTable.error(context,
-           funcDef.returnType,
-           "Type " + bodyRetType.getName() + " of the body of method " + id.getText() +
-           "is incompatible with declared return type " + retType.getName());
- // body.forEach(expr -> expr.accept(this));
+  body.forEach(expr -> expr.accept(this));
   funcDef.params.forEach(node -> node.accept(this));
-  scope = currentScope;
-  return bodyRetType;
+  scope = symbol.getParent();
+  return null;
  }
 
  @Override
  public TypeSymbol visit(ASTclassNode asTclassNode) {
   if(asTclassNode.type == null)
    return null;
+
+  scope = SymbolTable.globals;
+  var context = asTclassNode.getContext();
+
+  if(!(asTclassNode.name2 == null) && scope.lookup(asTclassNode.name2.getText()) == null)
+  {
+   SymbolTable.error(context,
+                     asTclassNode.name2,
+                     "Class " + asTclassNode.name.getText() + " has undefined parent " + asTclassNode.name2.getText());
+   return null;
+  }
+  var currentType = asTclassNode.getType();
+
+  Symbol parentType;
+  //iterez prin ierarhia de mostenire
+  while(currentType != TypeSymbol.OBJECT) {
+
+    parentType = SymbolTable.globals.lookup(currentType.getParentName());
+   if(parentType == null)
+   {
+    SymbolTable.error(
+            asTclassNode.getContext(),
+            asTclassNode.name,
+            "Class " + asTclassNode.name.getText() + " has undefined parent " + currentType.getParentName()
+    );
+    return null;
+   }
+   currentType.setParent((TypeSymbol)parentType);
+   currentType = (TypeSymbol)currentType.getParent();
+
+
+   if (currentType == asTclassNode.getType()) {
+    SymbolTable.error(
+            asTclassNode.getContext(),
+            asTclassNode.name,
+            "Inheritance cycle for class " + asTclassNode.name.getText()
+    );
+    return null;
+   }
+  }
 
   scope = asTclassNode.getType();
   asTclassNode.content.forEach(node -> node.accept(this));
@@ -235,10 +251,8 @@ public class ASTResolutionPassVisitor  implements ASTVisitor<TypeSymbol>{
           "Cannot assign to self"
   );
  }
-  System.out.println("Compare " + type + " " + exprType);
  if(!exprType.isCompatible(type))
  {
-
   SymbolTable.error(assign2.getContext(),
           assign2.e.getToken(),
           "Type " + exprType.getName() + " of assigned expression is incompatible with declared type " +
@@ -585,13 +599,7 @@ public class ASTResolutionPassVisitor  implements ASTVisitor<TypeSymbol>{
 
  @Override
  public TypeSymbol visit(Block block) {
-  TypeSymbol retType = null;
-  for(Expression expr : block.expressions)
-  {
-    retType = expr.accept(this);
-  }
-  //block returns the type of last statement within block
-  return retType;
+  return null;
  }
 
  @Override

@@ -189,8 +189,8 @@ public class ASTDefinitionVisitor  implements ASTVisitor<Void> {
   }
   var parentType = SymbolTable.globals.lookup(type.getParentName());
 
- // type.setParent((TypeSymbol)parentType);
- // System.out.println("class " + type.getName() + " parent " + parentType.getName());
+  type.setParent((TypeSymbol)parentType);
+  //System.out.println("class " + type.getName() + " parent " + parentType.getName());
   asTclassNode.type = type;
   currentScope = type;
   asTclassNode.content.forEach(
