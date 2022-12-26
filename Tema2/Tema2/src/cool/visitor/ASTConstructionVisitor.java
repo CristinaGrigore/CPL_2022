@@ -33,7 +33,7 @@ public class ASTConstructionVisitor extends CoolParserBaseVisitor<ASTNode> {
  @Override
  public ASTNode visitVarDef(CoolParser.VarDefContext ctx) {
   var initValue = ctx.value == null ? null : (Expression)visit(ctx.value);
-  return new VarDef(ctx.name, ctx.type, initValue, ctx.start, ctx);
+  return new VarDef(ctx.type,ctx.name, initValue, ctx.start, ctx);
  }
  @Override
  public ASTNode visitMethodDef(CoolParser.MethodDefContext ctx) {

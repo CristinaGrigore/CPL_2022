@@ -1,28 +1,8 @@
-line 2:22, self undefined
-line 7:35, z undefined
-line 9:26, self undefined
-x
-x
-line 10:31, self undefined
-x
-u
-line 18:24, self undefined
-line 20:16, self undefined
-line 33:17, a undefined
-line 34:17, a undefined
-line 35:17, a undefined
-line 37:17, b undefined
-line 38:17, b undefined
-line 39:17, b undefined
-line 41:17, b undefined
-line 42:17, b undefined
-line 43:17, b undefined
-line 45:17, b undefined
-line 45:22, b undefined
-line 46:17, b undefined
-line 47:17, b undefined
-line 49:17, x undefined
-line 49:22, self undefined
-line 50:17, x undefined
-"19-self_type.cl", line 56:5, Semantic error: Class D overrides methodf1 with different number of formal parameters
+"19-self_type.cl", line 5:11, Semantic error: Method h of class A has formal parameter y with illegal type SELF_TYPE
+"19-self_type.cl", line 7:35, Semantic error: Undefined identifier z
+"19-self_type.cl", line 10:13, Semantic error: Cannot assign to self
+Compare SELF_TYPE Object
+"19-self_type.cl", line 11:13, Semantic error: Cannot assign to self
+Compare SELF_TYPE SELF_TYPE
+Compare Int SELF_TYPE
 Compilation halted

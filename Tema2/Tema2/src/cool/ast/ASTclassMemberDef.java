@@ -24,7 +24,7 @@ public class ASTclassMemberDef extends Instruction {
         return id_symbol;
     }
     public void setSymbol(IdSymbol type) {
-        this.id_symbol = id_symbol;
+        this.id_symbol = type;
     }
     @Override
     public <T> T accept(ASTVisitor<T> visitor) {

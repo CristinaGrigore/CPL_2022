@@ -5,10 +5,7 @@ import cool.lexer.CoolLexer;
 import cool.parser.CoolParser;
 import cool.parser.CoolParserBaseVisitor;
 import cool.structures.SymbolTable;
-import cool.visitor.ASTConstructionVisitor;
-import cool.visitor.ASTDefinitionVisitor;
-import cool.visitor.ASTResolutionPassVisitor;
-import cool.visitor.ASTVisitor;
+import cool.visitor.*;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import java.io.*;
@@ -113,8 +110,8 @@ public class Compiler {
             var astBuilder = new ASTConstructionVisitor();
             var ast = astBuilder.visit(globalTree);
 
-            var printVisitor = new ASTDefinitionVisitor();
-            ast.accept(printVisitor);
+            ast.accept(new ASTDefinitionVisitor());
+            ast.accept(new ASTClassVisitor()); // pas intermediar pentru stabilirea claselor si parintilor lor
             ast.accept(new ASTResolutionPassVisitor());
             if (SymbolTable.hasSemanticErrors()) {
                 System.err.println("Compilation halted");

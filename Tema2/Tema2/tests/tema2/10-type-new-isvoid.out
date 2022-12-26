@@ -1,8 +1,5 @@
-line 3:9, a undefined
-line 7:9, a undefined
-line 11:9, b undefined
-line 15:9, b undefined
-line 3:9, a undefined
-line 7:9, a undefined
-line 11:9, b undefined
-line 15:9, b undefined
+Compare A A
+Compare A B
+Compare B A
+"10-type-new-isvoid.cl", line 15:18, Semantic error: new is used with undefined type C
+Compilation halted

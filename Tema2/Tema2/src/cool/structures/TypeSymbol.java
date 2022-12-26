@@ -1,12 +1,14 @@
 package cool.structures;
 
 import cool.ast.ASTmethodDef;
+import cool.ast.Type;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TypeSymbol extends Symbol implements Scope {
-  protected Scope parent;
+  protected TypeSymbol parent;
   protected String parentName;
  private Map<String, MethodSymbol> methods = new LinkedHashMap<>();
  private Map<String, Symbol> symbols = new LinkedHashMap<>();
@@ -40,7 +42,6 @@ public class TypeSymbol extends Symbol implements Scope {
 
   if (sym != null)
    return sym;
-
   if (parent != null)
    return parent.lookup(str);
 
@@ -70,7 +71,39 @@ public class TypeSymbol extends Symbol implements Scope {
  }
 
  public MethodSymbol lookupMethod(String name) {
+  var sym = methods.get(name);
 
+  if (sym != null)
+   return sym;
+  if (parent != null)
+   return ((TypeSymbol)parent).lookupMethod(name);
   return null;
+ }
+
+ public Collection<Symbol> getSymbols() {
+  return symbols.values();
+ }
+
+ //recursive method to determine if types of assigned variables are compatible
+ //(they have the same type or one inherits the other)
+ public boolean isCompatible(TypeSymbol type) {
+  //System.out.println("type " + type.getName() + " this " + this.getName());
+  if(this.getName().equals(type.getName()))
+  {
+  // System.out.println("YAY1");
+   return true;
+  }
+  if (this == type) {
+  // System.out.println("YAY2");
+   return true;
+  }
+  if(this == SELF_TYPE || type == SELF_TYPE || this == OBJECT || type == OBJECT)
+   return true;
+  //System.out.println("NO " + this + " " + type);
+  if (parent != null) {
+   return parent.isCompatible(type);
+  }
+  System.out.println("parent null");
+  return false;
  }
 }

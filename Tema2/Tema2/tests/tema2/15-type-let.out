@@ -1,20 +1,4 @@
-line 3:9, u undefined
-line 3:29, u undefined
-line 10:19, x undefined
-line 10:23, y undefined
-line 10:27, z undefined
-line 14:9, u undefined
-line 15:29, x undefined
-line 18:19, x undefined
-line 18:23, y undefined
-line 18:27, z undefined
-line 3:9, u undefined
-line 3:29, u undefined
-line 10:19, x undefined
-line 10:23, y undefined
-line 10:27, z undefined
-line 14:9, u undefined
-line 15:29, x undefined
-line 18:19, x undefined
-line 18:23, y undefined
-line 18:27, z undefined
+"15-type-let.cl", line 6:23, Semantic error: Let variable b1 has undefined type B
+"15-type-let.cl", line 7:23, Semantic error: Let variable b2 has undefined type B
+"15-type-let.cl", line 8:23, Semantic error: Let variable c has undefined type C
+Compilation halted

@@ -116,18 +116,6 @@ public interface CoolParserListener extends ParseTreeListener {
 	 */
 	void exitDispatch(CoolParser.DispatchContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code bool}
-	 * labeled alternative in {@link CoolParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterBool(CoolParser.BoolContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code bool}
-	 * labeled alternative in {@link CoolParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitBool(CoolParser.BoolContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code string}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
@@ -139,6 +127,18 @@ public interface CoolParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitString(CoolParser.StringContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code bool}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool(CoolParser.BoolContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code bool}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool(CoolParser.BoolContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code isvoid}
 	 * labeled alternative in {@link CoolParser#expr}.

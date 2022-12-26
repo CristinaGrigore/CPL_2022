@@ -76,19 +76,19 @@ public interface CoolParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDispatch(CoolParser.DispatchContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code bool}
-	 * labeled alternative in {@link CoolParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBool(CoolParser.BoolContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code string}
 	 * labeled alternative in {@link CoolParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitString(CoolParser.StringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code bool}
+	 * labeled alternative in {@link CoolParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBool(CoolParser.BoolContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code isvoid}
 	 * labeled alternative in {@link CoolParser#expr}.
